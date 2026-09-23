@@ -1,0 +1,419 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login & Registration</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #667eea;
+            padding: 20px;
+        }
+
+        .box {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tabs button {
+            width: 50%;
+            padding: 12px;
+            border: none;
+            background: #eee;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .tabs button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .form {
+            display: none;
+        }
+
+        .form.active {
+            display: block;
+        }
+
+        .input {
+            margin-bottom: 15px;
+        }
+
+        .input label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .input input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #667eea;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background: #5568d9;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>My Account</h2>
+
+    <div class="tabs">
+        <button
+            id="loginTab"
+            class="active"
+            type="button"
+            onclick="showLogin()">
+            Login
+        </button>
+
+        <button
+            id="registerTab"
+            type="button"
+            onclick="showRegister()">
+            Register
+        </button>
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <form id="loginForm" class="form active">
+
+        <div class="input">
+            <label>Email</label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter email"
+                required>
+        </div>
+
+
+        <div class="input">
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter password"
+                required>
+        </div>
+
+
+        <button
+            type="submit"
+            class="submit">
+            Login
+        </button>
+
+        <div id="loginMessage" class="message"></div>
+
+    </form>
+
+
+    <!-- REGISTER -->
+
+    <form id="registerForm" class="form">
+
+        <div class="input">
+            <label>Full Name</label>
+
+            <input
+                type="text"
+                id="registerName"
+                placeholder="Enter your name"
+                required>
+        </div>
+
+
+        <div class="input">
+            <label>Email</label>
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="Enter email"
+                required>
+        </div>
+
+
+        <div class="input">
+            <label>Phone</label>
+
+            <input
+                type="text"
+                id="registerPhone"
+                placeholder="Enter phone number"
+                required>
+        </div>
+
+
+        <div class="input">
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Create password"
+                required>
+        </div>
+
+
+        <div class="input">
+            <label>Confirm Password</label>
+
+            <input
+                type="password"
+                id="registerConfirm"
+                placeholder="Confirm password"
+                required>
+        </div>
+
+
+        <button
+            type="submit"
+            class="submit">
+            Create Account
+        </button>
+
+        <div id="registerMessage" class="message"></div>
+
+    </form>
+
+</div>
+
+
+<script>
+
+    // Show Login
+    function showLogin() {
+
+        document.getElementById("loginForm")
+            .classList.add("active");
+
+        document.getElementById("registerForm")
+            .classList.remove("active");
+
+        document.getElementById("loginTab")
+            .classList.add("active");
+
+        document.getElementById("registerTab")
+            .classList.remove("active");
+    }
+
+
+    // Show Register
+    function showRegister() {
+
+        document.getElementById("registerForm")
+            .classList.add("active");
+
+        document.getElementById("loginForm")
+            .classList.remove("active");
+
+        document.getElementById("registerTab")
+            .classList.add("active");
+
+        document.getElementById("loginTab")
+            .classList.remove("active");
+    }
+
+
+    // Registration
+    document.getElementById("registerForm")
+        .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("registerName").value;
+
+        const email =
+            document.getElementById("registerEmail").value;
+
+        const phone =
+            document.getElementById("registerPhone").value;
+
+        const password =
+            document.getElementById("registerPassword").value;
+
+        const confirm =
+            document.getElementById("registerConfirm").value;
+
+        const message =
+            document.getElementById("registerMessage");
+
+
+        if (password !== confirm) {
+
+            message.innerHTML =
+                "Passwords do not match!";
+
+            message.className =
+                "message error";
+
+            return;
+        }
+
+
+        const user = {
+            name: name,
+            email: email,
+            phone: phone,
+            password: password
+        };
+
+
+        localStorage.setItem(
+            "myUser",
+            JSON.stringify(user)
+        );
+
+
+        message.innerHTML =
+            "Registration successful!";
+
+        message.className =
+            "message success";
+
+
+        document.getElementById("registerForm").reset();
+
+    });
+
+
+    // Login
+    document.getElementById("loginForm")
+        .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const email =
+            document.getElementById("loginEmail").value;
+
+        const password =
+            document.getElementById("loginPassword").value;
+
+        const message =
+            document.getElementById("loginMessage");
+
+
+        const savedUser =
+            localStorage.getItem("myUser");
+
+
+        if (!savedUser) {
+
+            message.innerHTML =
+                "No account found. Please register first.";
+
+            message.className =
+                "message error";
+
+            return;
+        }
+
+
+        const user =
+            JSON.parse(savedUser);
+
+
+        if (
+            email === user.email &&
+            password === user.password
+        ) {
+
+            message.innerHTML =
+                "Login successful! Welcome, " +
+                user.name;
+
+            message.className =
+                "message success";
+
+        } else {
+
+            message.innerHTML =
+                "Wrong email or password.";
+
+            message.className =
+                "message error";
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
+```
