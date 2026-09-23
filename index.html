@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login Registration</title>
+
+<title>Registration & Login</title>
 
 <style>
 * {
@@ -18,38 +19,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea, #764ba2);
 }
 
 .box {
     width: 400px;
     max-width: 95%;
     background: white;
-    padding: 25px;
-    border-radius: 10px;
+    padding: 30px;
+    border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,.2);
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 20px;
-}
-
-.tabs {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-.tabs button {
-    width: 50%;
-    padding: 12px;
-    border: 0;
-    cursor: pointer;
-}
-
-.tabs .active {
-    background: #667eea;
-    color: white;
+    margin-bottom: 25px;
 }
 
 .form {
@@ -66,17 +50,17 @@ h2 {
 
 .field label {
     display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
+    margin-bottom: 6px;
     font-weight: bold;
+    font-size: 14px;
 }
 
 .field input,
 .field select {
     width: 100%;
-    padding: 11px;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 14px;
 }
 
@@ -103,19 +87,33 @@ h2 {
     font-size: 14px;
 }
 
-.submit {
+.btn {
     width: 100%;
-    padding: 12px;
-    border: 0;
-    border-radius: 5px;
+    padding: 13px;
+    border: none;
+    border-radius: 6px;
     background: #667eea;
     color: white;
     font-size: 16px;
     cursor: pointer;
 }
 
-.submit:hover {
+.btn:hover {
     background: #5568d9;
+}
+
+.link {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.link button {
+    border: none;
+    background: none;
+    color: #667eea;
+    cursor: pointer;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -124,44 +122,89 @@ h2 {
 
 <div class="box">
 
-<h2>My Account</h2>
+    <!-- ================= REGISTRATION PAGE ================= -->
 
-<div class="tabs">
-    <button id="loginBtn" class="active" type="button">
-        Login
-    </button>
+    <form id="registerForm" class="form active">
 
-    <button id="registerBtn" type="button">
-        Register
-    </button>
-</div>
+        <h2>Create Account</h2>
 
+        <!-- Name -->
+        <div class="field">
+            <label>Full Name</label>
 
-<!-- LOGIN -->
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter your full name"
+                maxlength="50"
+                required>
 
-<form id="loginForm" class="form active">
-
-    <div class="field">
-        <label>Email</label>
-
-        <input
-            type="email"
-            id="loginEmail"
-            placeholder="example@gmail.com"
-            required>
-
-        <div id="loginEmailError" class="error"></div>
-    </div>
+            <div id="nameError" class="error"></div>
+        </div>
 
 
-    <div class="field">
-        <label>Password</label>
+        <!-- Username -->
+        <div class="field">
+            <label>Username</label>
 
-        <input
-            type="password"
-            id="loginPassword"
-            placeholder="Password"
-            required>
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter username"
+                maxlength="20"
+                required>
 
-        <div id="loginPass
+            <div id="usernameError" class="error"></div>
+        </div>
+
+
+        <!-- Email -->
+        <div class="field">
+            <label>Email</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="example@gmail.com"
+                required>
+
+            <div id="emailError" class="error"></div>
+        </div>
+
+
+        <!-- Phone -->
+        <div class="field">
+            <label>Phone Number</label>
+
+            <input
+                type="text"
+                id="phone"
+                placeholder="01712345678"
+                maxlength="11"
+                inputmode="numeric"
+                required>
+
+            <div id="phoneError" class="error"></div>
+        </div>
+
+
+        <!-- Date of Birth -->
+        <div class="field">
+            <label>Date of Birth</label>
+
+            <input
+                type="date"
+                id="dob"
+                required>
+
+            <div id="dobError" class="error"></div>
+        </div>
+
+
+        <!-- Gender -->
+        <div class="field">
+            <label>Gender</label>
+
+            <select id="gender" required>
+                <option value="">Select Gender</o
 ```
