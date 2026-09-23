@@ -87,5 +87,913 @@
         }
 
         .input input:focus {
-            outli
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .input input.invalid {
+            border-color: #dc3545;
+        }
+
+        .input input.valid {
+            border-color: #198754;
+        }
+
+        .error {
+            display: block;
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .submit {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #667eea;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background: #5568d9;
+        }
+
+        .submit:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .message.error {
+            color: red;
+        }
+
+        .password-info {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>My Account</h2>
+
+    <!-- Tabs -->
+    <div class="tabs">
+
+        <button
+            id="loginTab"
+            class="active"
+            type="button"
+            onclick="showLogin()">
+            Login
+        </button>
+
+        <button
+            id="registerTab"
+            type="button"
+            onclick="showRegister()">
+            Register
+        </button>
+
+    </div>
+
+
+    <!-- ================= LOGIN ================= -->
+
+    <form id="loginForm" class="form active">
+
+        <div class="input">
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="example@email.com"
+                autocomplete="email"
+                required>
+
+            <span id="loginEmailError" class="error"></span>
+
+        </div>
+
+
+        <div class="input">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required>
+
+            <span id="loginPasswordError" class="error"></span>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="submit">
+            Login
+        </button>
+
+
+        <div id="loginMessage" class="message"></div>
+
+    </form>
+
+
+    <!-- ================= REGISTER ================= -->
+
+    <form id="registerForm" class="form">
+
+        <!-- Name -->
+
+        <div class="input">
+
+            <label>Full Name</label>
+
+            <input
+                type="text"
+                id="registerName"
+                placeholder="Enter your full name"
+                maxlength="50"
+                autocomplete="name"
+                required>
+
+            <span id="nameError" class="error"></span>
+
+        </div>
+
+
+        <!-- Email -->
+
+        <div class="input">
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                id="registerEmail"
+                placeholder="example@email.com"
+                maxlength="100"
+                autocomplete="email"
+                required>
+
+            <span id="emailError" class="error"></span>
+
+        </div>
+
+
+        <!-- Phone -->
+
+        <div class="input">
+
+            <label>Phone Number</label>
+
+            <input
+                type="tel"
+                id="registerPhone"
+                placeholder="01XXXXXXXXX"
+                maxlength="11"
+                autocomplete="tel"
+                required>
+
+            <span id="phoneError" class="error"></span>
+
+        </div>
+
+
+        <!-- Password -->
+
+        <div class="input">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                id="registerPassword"
+                placeholder="Create password"
+                maxlength="50"
+                autocomplete="new-password"
+                required>
+
+            <span id="passwordError" class="error"></span>
+
+            <div class="password-info">
+                Password must be at least 8 characters and contain
+                uppercase, lowercase, number and special character.
+            </div>
+
+        </div>
+
+
+        <!-- Confirm Password -->
+
+        <div class="input">
+
+            <label>Confirm Password</label>
+
+            <input
+                type="password"
+                id="registerConfirm"
+                placeholder="Confirm password"
+                autocomplete="new-password"
+                required>
+
+            <span id="confirmError" class="error"></span>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="submit">
+            Create Account
+        </button>
+
+
+        <div id="registerMessage" class="message"></div>
+
+    </form>
+
+</div>
+
+
+<script>
+
+    /* =====================================
+       TAB CONTROL
+    ===================================== */
+
+    function showLogin() {
+
+        document.getElementById("loginForm")
+            .classList.add("active");
+
+        document.getElementById("registerForm")
+            .classList.remove("active");
+
+        document.getElementById("loginTab")
+            .classList.add("active");
+
+        document.getElementById("registerTab")
+            .classList.remove("active");
+
+        clearMessages();
+    }
+
+
+    function showRegister() {
+
+        document.getElementById("registerForm")
+            .classList.add("active");
+
+        document.getElementById("loginForm")
+            .classList.remove("active");
+
+        document.getElementById("registerTab")
+            .classList.add("active");
+
+        document.getElementById("loginTab")
+            .classList.remove("active");
+
+        clearMessages();
+    }
+
+
+    /* =====================================
+       VALIDATION FUNCTIONS
+    ===================================== */
+
+    function setError(input, errorElement, message) {
+
+        input.classList.add("invalid");
+        input.classList.remove("valid");
+
+        errorElement.textContent = message;
+
+        return false;
+    }
+
+
+    function setValid(input, errorElement) {
+
+        input.classList.remove("invalid");
+        input.classList.add("valid");
+
+        errorElement.textContent = "";
+
+        return true;
+    }
+
+
+    /* =====================================
+       NAME VALIDATION
+    ===================================== */
+
+    function validateName() {
+
+        const input =
+            document.getElementById("registerName");
+
+        const error =
+            document.getElementById("nameError");
+
+        const name =
+            input.value.trim();
+
+
+        if (name === "") {
+
+            return setError(
+                input,
+                error,
+                "Name is required."
+            );
+        }
+
+
+        if (name.length < 2) {
+
+            return setError(
+                input,
+                error,
+                "Name must contain at least 2 characters."
+            );
+        }
+
+
+        if (!/^[A-Za-zÀ-ÿ\s.'-]+$/.test(name)) {
+
+            return setError(
+                input,
+                error,
+                "Name contains invalid characters."
+            );
+        }
+
+
+        return setValid(input, error);
+    }
+
+
+    /* =====================================
+       EMAIL VALIDATION
+    ===================================== */
+
+    function validateEmail() {
+
+        const input =
+            document.getElementById("registerEmail");
+
+        const error =
+            document.getElementById("emailError");
+
+        const email =
+            input.value.trim().toLowerCase();
+
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+
+        if (email === "") {
+
+            return setError(
+                input,
+                error,
+                "Email is required."
+            );
+        }
+
+
+        if (!emailPattern.test(email)) {
+
+            return setError(
+                input,
+                error,
+                "Please enter a valid email address."
+            );
+        }
+
+
+        return setValid(input, error);
+    }
+
+
+    /* =====================================
+       PHONE VALIDATION
+    ===================================== */
+
+    function validatePhone() {
+
+        const input =
+            document.getElementById("registerPhone");
+
+        const error =
+            document.getElementById("phoneError");
+
+        const phone =
+            input.value.trim();
+
+
+        /*
+            Bangladesh mobile number:
+
+            01XXXXXXXXX
+            Exactly 11 digits
+        */
+
+        const phonePattern =
+            /^01[3-9]\d{8}$/;
+
+
+        if (phone === "") {
+
+            return setError(
+                input,
+                error,
+                "Phone number is required."
+            );
+        }
+
+
+        if (!phonePattern.test(phone)) {
+
+            return setError(
+                input,
+                error,
+                "Enter a valid Bangladesh mobile number."
+            );
+        }
+
+
+        return setValid(input, error);
+    }
+
+
+    /* =====================================
+       PASSWORD VALIDATION
+    ===================================== */
+
+    function validatePassword() {
+
+        const input =
+            document.getElementById("registerPassword");
+
+        const error =
+            document.getElementById("passwordError");
+
+        const password =
+            input.value;
+
+
+        if (password.length < 8) {
+
+            return setError(
+                input,
+                error,
+                "Password must be at least 8 characters."
+            );
+        }
+
+
+        if (!/[A-Z]/.test(password)) {
+
+            return setError(
+                input,
+                error,
+                "Password needs an uppercase letter."
+            );
+        }
+
+
+        if (!/[a-z]/.test(password)) {
+
+            return setError(
+                input,
+                error,
+                "Password needs a lowercase letter."
+            );
+        }
+
+
+        if (!/[0-9]/.test(password)) {
+
+            return setError(
+                input,
+                error,
+                "Password needs a number."
+            );
+        }
+
+
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+
+            return setError(
+                input,
+                error,
+                "Password needs a special character."
+            );
+        }
+
+
+        return setValid(input, error);
+    }
+
+
+    /* =====================================
+       CONFIRM PASSWORD
+    ===================================== */
+
+    function validateConfirmPassword() {
+
+        const input =
+            document.getElementById("registerConfirm");
+
+        const error =
+            document.getElementById("confirmError");
+
+        const password =
+            document.getElementById("registerPassword").value;
+
+        const confirm =
+            input.value;
+
+
+        if (confirm === "") {
+
+            return setError(
+                input,
+                error,
+                "Please confirm your password."
+            );
+        }
+
+
+        if (password !== confirm) {
+
+            return setError(
+                input,
+                error,
+                "Passwords do not match."
+            );
+        }
+
+
+        return setValid(input, error);
+    }
+
+
+    /* =====================================
+       LIVE VALIDATION
+    ===================================== */
+
+    document.getElementById("registerName")
+        .addEventListener("input", validateName);
+
+    document.getElementById("registerEmail")
+        .addEventListener("input", validateEmail);
+
+    document.getElementById("registerPhone")
+        .addEventListener("input", validatePhone);
+
+    document.getElementById("registerPassword")
+        .addEventListener("input", function() {
+
+            validatePassword();
+
+            if (
+                document.getElementById("registerConfirm").value
+            ) {
+                validateConfirmPassword();
+            }
+
+        });
+
+    document.getElementById("registerConfirm")
+        .addEventListener("input", validateConfirmPassword);
+
+
+    /* =====================================
+       REGISTER
+    ===================================== */
+
+    document.getElementById("registerForm")
+        .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const validName =
+            validateName();
+
+        const validEmail =
+            validateEmail();
+
+        const validPhone =
+            validatePhone();
+
+        const validPassword =
+            validatePassword();
+
+        const validConfirm =
+            validateConfirmPassword();
+
+
+        if (
+            !validName ||
+            !validEmail ||
+            !validPhone ||
+            !validPassword ||
+            !validConfirm
+        ) {
+
+            document.getElementById("registerMessage")
+                .textContent =
+                "Please fix the errors above.";
+
+            document.getElementById("registerMessage")
+                .className =
+                "message error";
+
+            return;
+        }
+
+
+        const name =
+            document.getElementById("registerName")
+                .value.trim();
+
+        const email =
+            document.getElementById("registerEmail")
+                .value.trim().toLowerCase();
+
+        const phone =
+            document.getElementById("registerPhone")
+                .value.trim();
+
+        const password =
+            document.getElementById("registerPassword")
+                .value;
+
+
+        /*
+            Check existing user
+        */
+
+        const oldUser =
+            localStorage.getItem("myUser");
+
+
+        if (oldUser) {
+
+            const existingUser =
+                JSON.parse(oldUser);
+
+            if (existingUser.email === email) {
+
+                document.getElementById("emailError")
+                    .textContent =
+                    "This email is already registered.";
+
+                document.getElementById("registerEmail")
+                    .classList.add("invalid");
+
+                return;
+            }
+        }
+
+
+        /*
+            Save user
+        */
+
+        const user = {
+            name: name,
+            email: email,
+            phone: phone,
+            password: password
+        };
+
+
+        localStorage.setItem(
+            "myUser",
+            JSON.stringify(user)
+        );
+
+
+        const message =
+            document.getElementById("registerMessage");
+
+
+        message.textContent =
+            "Registration successful! You can now login.";
+
+        message.className =
+            "message success";
+
+
+        document.getElementById("registerForm")
+            .reset();
+
+
+        document.querySelectorAll(
+            "#registerForm input"
+        ).forEach(function(input) {
+
+            input.classList.remove("valid");
+            input.classList.remove("invalid");
+
+        });
+
+    });
+
+
+    /* =====================================
+       LOGIN VALIDATION
+    ===================================== */
+
+    document.getElementById("loginForm")
+        .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const emailInput =
+            document.getElementById("loginEmail");
+
+        const passwordInput =
+            document.getElementById("loginPassword");
+
+        const message =
+            document.getElementById("loginMessage");
+
+
+        const email =
+            emailInput.value.trim().toLowerCase();
+
+        const password =
+            passwordInput.value;
+
+
+        const emailError =
+            document.getElementById("loginEmailError");
+
+        const passwordError =
+            document.getElementById("loginPasswordError");
+
+
+        emailError.textContent = "";
+        passwordError.textContent = "";
+
+
+        /*
+            Email validation
+        */
+
+        if (email === "") {
+
+            emailError.textContent =
+                "Email is required.";
+
+            return;
+        }
+
+
+        const emailPattern =
+            /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+
+        if (!emailPattern.test(email)) {
+
+            emailError.textContent =
+                "Enter a valid email.";
+
+            return;
+        }
+
+
+        /*
+            Password validation
+        */
+
+        if (password === "") {
+
+            passwordError.textContent =
+                "Password is required.";
+
+            return;
+        }
+
+
+        /*
+            Get saved user
+        */
+
+        const savedUser =
+            localStorage.getItem("myUser");
+
+
+        if (!savedUser) {
+
+            message.textContent =
+                "No account found. Please register first.";
+
+            message.className =
+                "message error";
+
+            return;
+        }
+
+
+        const user =
+            JSON.parse(savedUser);
+
+
+        /*
+            Check credentials
+        */
+
+        if (
+            email === user.email &&
+            password === user.password
+        ) {
+
+            message.textContent =
+                "Login successful! Welcome, " +
+                user.name;
+
+            message.className =
+                "message success";
+
+        } else {
+
+            message.textContent =
+                "Invalid email or password.";
+
+            message.className =
+                "message error";
+        }
+
+    });
+
+
+    /* =====================================
+       CLEAR MESSAGES
+    ===================================== */
+
+    function clearMessages() {
+
+        document.querySelectorAll(".message")
+            .forEach(function(element) {
+
+                element.textContent = "";
+
+            });
+
+
+        document.querySelectorAll("input")
+            .forEach(function(input) {
+
+                input.classList.remove("valid");
+                input.classList.remove("invalid");
+
+            });
+
+
+        document.querySelectorAll(".error")
+            .forEach(function(error) {
+
+                error.textContent = "";
+
+            });
+    }
+
+</script>
+
+</body>
+</html>
 ```
