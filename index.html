@@ -2,215 +2,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Registration</title>
 
-    <title>Registration & Login</title>
+<style>
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #667eea;
+}
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 20px;
-        }
+.box {
+    width: 400px;
+    max-width: 95%;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
 
-        .container {
-            width: 100%;
-            max-width: 450px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 14px;
-            box-shadow: 0 15px 40px rgba(0,0,0,.2);
-        }
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #222;
-        }
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+}
 
-        .tabs {
-            display: flex;
-            margin-bottom: 25px;
-        }
+.tabs button {
+    width: 50%;
+    padding: 12px;
+    border: 0;
+    cursor: pointer;
+}
 
-        .tabs button {
-            flex: 1;
-            padding: 13px;
-            border: none;
-            cursor: pointer;
-            background: #eee;
-            font-size: 15px;
-        }
+.tabs .active {
+    background: #667eea;
+    color: white;
+}
 
-        .tabs button:first-child {
-            border-radius: 7px 0 0 7px;
-        }
+.form {
+    display: none;
+}
 
-        .tabs button:last-child {
-            border-radius: 0 7px 7px 0;
-        }
+.form.active {
+    display: block;
+}
 
-        .tabs button.active {
-            background: #667eea;
-            color: #fff;
-        }
+.field {
+    margin-bottom: 15px;
+}
 
-        .form {
-            display: none;
-        }
+.field label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
 
-        .form.active {
-            display: block;
-        }
+.field input,
+.field select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
 
-        .form-group {
-            margin-bottom: 16px;
-        }
+.field input:focus,
+.field select:focus {
+    outline: none;
+    border-color: #667eea;
+}
 
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #333;
-        }
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 15px;
+}
 
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-            font-size: 15px;
-            outline: none;
-        }
+.success {
+    color: green;
+}
 
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #667eea;
-        }
+.message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
 
-        .form-group input.valid {
-            border-color: #198754;
-        }
+.submit {
+    width: 100%;
+    padding: 12px;
+    border: 0;
+    border-radius: 5px;
+    background: #667eea;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
 
-        .form-group input.invalid {
-            border-color: #dc3545;
-        }
-
-        .error {
-            display: block;
-            min-height: 17px;
-            margin-top: 4px;
-            color: #dc3545;
-            font-size: 12px;
-        }
-
-        .hint {
-            margin-top: 4px;
-            color: #777;
-            font-size: 11px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 7px;
-            background: #667eea;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: #5568d9;
-        }
-
-        .message {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .success {
-            color: #198754;
-        }
-
-        .message-error {
-            color: #dc3545;
-        }
-
-        .password-rules {
-            margin-top: 7px;
-            padding: 8px;
-            background: #f7f7f7;
-            border-radius: 5px;
-            font-size: 11px;
-            color: #666;
-            line-height: 1.6;
-        }
-    </style>
+.submit:hover {
+    background: #5568d9;
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="box">
 
-    <h2>My Account</h2>
+<h2>My Account</h2>
 
-    <!-- Tabs -->
-    <div class="tabs">
+<div class="tabs">
+    <button id="loginBtn" class="active" type="button">
+        Login
+    </button>
 
-        <button
-            type="button"
-            id="loginTab"
-            class="active"
-            onclick="showLogin()">
-            Login
-        </button>
+    <button id="registerBtn" type="button">
+        Register
+    </button>
+</div>
 
-        <button
-            type="button"
-            id="registerTab"
-            onclick="showRegister()">
-            Registration
-        </button>
 
+<!-- LOGIN -->
+
+<form id="loginForm" class="form active">
+
+    <div class="field">
+        <label>Email</label>
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="example@gmail.com"
+            required>
+
+        <div id="loginEmailError" class="error"></div>
     </div>
 
 
-    <!-- ================= LOGIN ================= -->
+    <div class="field">
+        <label>Password</label>
 
-    <form id="loginForm" class="form active">
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            required>
 
-        <div class="form-group">
-
-            <label for="loginEmail">
-                Email Address
-            </label>
-
-            <input
-                type="email"
-                id="loginEmail"
-                name="login_email"
-                placeholder="example@gmail.com"
-                maxlength="100"
-                autocomplete="email"
-                required>
-
-            <span id="loginEmailError
+        <div id="loginPass
 ```
